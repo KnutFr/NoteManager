@@ -1,0 +1,41 @@
+
+CREATE DATABASE NoteManager
+
+USE NoteManager
+
+
+CREATE TABLE dbo.Users(
+idUser INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+Username NCHAR(50),
+Password NCHAR(50),
+Admin BIT
+)
+
+
+CREATE TABLE dbo.Notes(
+idNote INT PRIMARY KEY NOT NULL,
+Title NCHAR(200),
+Content VARCHAR(8000),
+Creation Datetime NOT NULL,
+LastUpdate Datetime,
+UserId int NOT NULL,
+CONSTRAINT fk_usernote FOREIGN KEY (UserId)
+REFERENCES Users(idUser))
+
+
+INSERT dbo.Users(Username, Password, Admin)
+VALUES ('knut', 'xxx', '1')
+INSERT dbo.Users(Username, Password, Admin)
+VALUES ('hntr', 'xxx', '1')
+INSERT dbo.Users(Username, Password, Admin)
+VALUES ('basic', 'xxx', '1')
+
+
+INSERT dbo.Notes(Title, Content, Creation, LastUpdate, UserId)
+VALUES('Ceci est un titre', 'et le contenu', GETDATE(), GETDATE(), 1)
+INSERT dbo.Notes(Title, Content, Creation, LastUpdate, UserId)
+VALUES('Super note', 'cool story bro', GETDATE(), GETDATE(), 1)
+INSERT dbo.Notes(Title, Content, Creation, LastUpdate, UserId)
+VALUES('Mega note', 'wait what ? ', GETDATE(), GETDATE(), 2)
+INSERT dbo.Notes(Title, Content, Creation, LastUpdate, UserId)
+VALUES('Giga note', 'y u do dis to me ? ', GETDATE(), GETDATE(), 3)

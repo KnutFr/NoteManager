@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Service1" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/NoteManagerServer" />
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/NoteManagerServer.DB" />
+      <xs:element name="GetNotes">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetNotesResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/NoteManagerServer" minOccurs="0" name="GetNotesResult" nillable="true" type="q1:ArrayOfNote" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetUserNotes">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="idUser" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetUserNotesResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/NoteManagerServer" minOccurs="0" name="GetUserNotesResult" nillable="true" type="q2:ArrayOfNote" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SetNote">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="idUser" type="xs:int" />
+            <xs:element minOccurs="0" name="note" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="title" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SetNoteResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="SetNoteResult" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DelNote">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="idNote" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DelNoteResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="DelNoteResult" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetNote">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="idNote" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetNoteResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/NoteManagerServer" minOccurs="0" name="GetNoteResult" nillable="true" type="q3:Note" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetUser">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="login" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetUserResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/NoteManagerServer.DB" minOccurs="0" name="GetUserResult" nillable="true" type="q4:Users" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="AddUser">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="login" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="admin" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="AddUserResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="AddUserResult" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DelUser">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="idUser" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DelUserResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="DelUserResult" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ChangeDb">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="ip" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="dbname" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="login" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="pass" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ChangeDbResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="ChangeDbResult" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/NoteManagerServer" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/NoteManagerServer" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="ArrayOfNote">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Note" nillable="true" type="tns:Note" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfNote" nillable="true" type="tns:ArrayOfNote" />
+      <xs:complexType name="Note">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Content" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Creation" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="LastUpdate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UserId" type="xs:int" />
+          <xs:element minOccurs="0" name="idNote" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Note" nillable="true" type="tns:Note" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/NoteManagerServer.DB" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/NoteManagerServer.DB" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="Users">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Admin" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Notes" nillable="true" type="tns:ArrayOfNotes" />
+          <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="idUser" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Users" nillable="true" type="tns:Users" />
+      <xs:complexType name="ArrayOfNotes">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Notes" nillable="true" type="tns:Notes" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfNotes" nillable="true" type="tns:ArrayOfNotes" />
+      <xs:complexType name="Notes">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Content" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Creation" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="LastUpdate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UserId" type="xs:int" />
+          <xs:element minOccurs="0" name="Users" nillable="true" type="tns:Users" />
+          <xs:element minOccurs="0" name="idNote" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Notes" nillable="true" type="tns:Notes" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="IService1_GetNotes_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNotes" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetNotes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNotesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetUserNotes_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserNotes" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetUserNotes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserNotesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SetNote_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetNote" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SetNote_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetNoteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DelNote_InputMessage">
+    <wsdl:part name="parameters" element="tns:DelNote" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DelNote_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DelNoteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetNote_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNote" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetNote_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNoteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUser" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddUser" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DelUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:DelUser" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DelUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DelUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ChangeDb_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeDb" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ChangeDb_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeDbResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IService1">
+    <wsdl:operation name="GetNotes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetNotes" message="tns:IService1_GetNotes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetNotesResponse" message="tns:IService1_GetNotes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserNotes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetUserNotes" message="tns:IService1_GetUserNotes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetUserNotesResponse" message="tns:IService1_GetUserNotes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetNote">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/SetNote" message="tns:IService1_SetNote_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/SetNoteResponse" message="tns:IService1_SetNote_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DelNote">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/DelNote" message="tns:IService1_DelNote_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/DelNoteResponse" message="tns:IService1_DelNote_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNote">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetNote" message="tns:IService1_GetNote_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetNoteResponse" message="tns:IService1_GetNote_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetUser" message="tns:IService1_GetUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetUserResponse" message="tns:IService1_GetUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddUser" message="tns:IService1_AddUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddUserResponse" message="tns:IService1_AddUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DelUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/DelUser" message="tns:IService1_DelUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/DelUserResponse" message="tns:IService1_DelUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeDb">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/ChangeDb" message="tns:IService1_ChangeDb_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/ChangeDbResponse" message="tns:IService1_ChangeDb_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetNotes">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetNotes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserNotes">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetUserNotes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetNote">
+      <soap:operation soapAction="http://tempuri.org/IService1/SetNote" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DelNote">
+      <soap:operation soapAction="http://tempuri.org/IService1/DelNote" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNote">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetNote" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUser">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddUser">
+      <soap:operation soapAction="http://tempuri.org/IService1/AddUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DelUser">
+      <soap:operation soapAction="http://tempuri.org/IService1/DelUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeDb">
+      <soap:operation soapAction="http://tempuri.org/IService1/ChangeDb" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service1">
+    <wsdl:port name="BasicHttpBinding_IService1" binding="tns:BasicHttpBinding_IService1">
+      <soap:address location="http://localhost:1197/Service1.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

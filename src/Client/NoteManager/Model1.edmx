@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="NoteManagerModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="NoteManagerModelStoreContainer">
+          <EntitySet Name="Notes" EntityType="NoteManagerModel.Store.Notes" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="NoteManagerModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="fk_Notes_Users" Association="NoteManagerModel.Store.fk_Notes_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Notes" EntitySet="Notes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Notes">
+          <Key>
+            <PropertyRef Name="IdNotes" />
+          </Key>
+          <Property Name="IdNotes" Type="int" Nullable="false" />
+          <Property Name="Users" Type="int" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="45" />
+          <Property Name="Content" Type="varchar" />
+          <Property Name="Creation" Type="datetime" />
+          <Property Name="LastUpdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="IdUsers" />
+          </Key>
+          <Property Name="IdUsers" Type="int" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="45" />
+          <Property Name="Password" Type="varchar" MaxLength="45" />
+          <Property Name="admin" Type="bit" />
+        </EntityType>
+        <Association Name="fk_Notes_Users">
+          <End Role="Users" Type="NoteManagerModel.Store.Users" Multiplicity="1" />
+          <End Role="Notes" Type="NoteManagerModel.Store.Notes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="IdUsers" />
+            </Principal>
+            <Dependent Role="Notes">
+              <PropertyRef Name="Users" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NoteManagerModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="NoteManagerEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Notes" EntityType="NoteManagerModel.Notes" />
+          <EntitySet Name="Users" EntityType="NoteManagerModel.Users" />
+          <AssociationSet Name="fk_Notes_Users" Association="NoteManagerModel.fk_Notes_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Notes" EntitySet="Notes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Notes">
+          <Key>
+            <PropertyRef Name="IdNotes" />
+          </Key>
+          <Property Name="IdNotes" Type="Int32" Nullable="false" />
+          <Property Name="Users" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="Content" Type="String" MaxLength="8000" Unicode="false" FixedLength="false" />
+          <Property Name="Creation" Type="DateTime" Precision="3" />
+          <Property Name="LastUpdate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Users1" Relationship="NoteManagerModel.fk_Notes_Users" FromRole="Notes" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="IdUsers" />
+          </Key>
+          <Property Name="IdUsers" Type="Int32" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="Password" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="admin" Type="Boolean" />
+          <NavigationProperty Name="Notes" Relationship="NoteManagerModel.fk_Notes_Users" FromRole="Users" ToRole="Notes" />
+        </EntityType>
+        <Association Name="fk_Notes_Users">
+          <End Role="Users" Type="NoteManagerModel.Users" Multiplicity="1" />
+          <End Role="Notes" Type="NoteManagerModel.Notes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="IdUsers" />
+            </Principal>
+            <Dependent Role="Notes">
+              <PropertyRef Name="Users" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="NoteManagerModelStoreContainer" CdmEntityContainer="NoteManagerEntities">
+          <EntitySetMapping Name="Notes">
+            <EntityTypeMapping TypeName="NoteManagerModel.Notes">
+              <MappingFragment StoreEntitySet="Notes">
+                <ScalarProperty Name="IdNotes" ColumnName="IdNotes" />
+                <ScalarProperty Name="Users" ColumnName="Users" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Creation" ColumnName="Creation" />
+                <ScalarProperty Name="LastUpdate" ColumnName="LastUpdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="NoteManagerModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="IdUsers" ColumnName="IdUsers" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="admin" ColumnName="admin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

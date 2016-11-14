@@ -1,0 +1,69 @@
+﻿<Window x:Class="NoteManager.Views.SearchWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:viewModels="clr-namespace:NoteManager.ViewModels"
+        xmlns:converters="clr-namespace:NoteManager.Converters"
+        xmlns:custom="clr-namespace:NoteManager.Views.Custom"
+        xmlns:tk="http://schemas.microsoft.com/wpf/2008/toolkit"
+
+        Title="SearchWindow" Height="600" Width="1200"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.DataContext>
+        <viewModels:SearchWindowViewModel />
+    </Window.DataContext>
+
+    <Window.Resources>
+        <converters:DateTimeConverter x:Key="DateTimeConverter" />
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+            
+        <custom:FilteringDataGrid x:Name="dgSearch" AutoGenerateColumns="False" Grid.Row="0" IsFilteringCaseSensitive="False" 
+                                  SelectionMode="Single" ItemsSource="{Binding Notes}" SelectedItem="{Binding SelectedNote, Mode=OneWayToSource}">
+
+            <custom:FilteringDataGrid.Columns>
+                <tk:DataGridTextColumn Header="ID" MinWidth="125" Binding="{Binding Id}" IsReadOnly="True"/>
+                <tk:DataGridTextColumn Header="Title" MinWidth="200" Binding="{Binding Title}" IsReadOnly="True">
+                    <tk:DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            <Setter Property="TextBlock.Margin" Value="3,0,0,0" />
+                        </Style>
+                    </tk:DataGridTextColumn.ElementStyle>
+                </tk:DataGridTextColumn>
+
+                <tk:DataGridTextColumn Header="Creation Date" MinWidth="200" Binding="{Binding CreationDate, Converter={StaticResource DateTimeConverter}}" IsReadOnly="True"/>
+                <tk:DataGridTextColumn Header="Edition Date" MinWidth="200" Binding="{Binding EditionDate, Converter={StaticResource DateTimeConverter}}" IsReadOnly="True"/>
+                <tk:DataGridTextColumn Header="Content" MinWidth="200" Binding="{Binding Content}" IsReadOnly="True" Width="*" >
+                    <tk:DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                        </Style>
+                    </tk:DataGridTextColumn.ElementStyle>
+                </tk:DataGridTextColumn>
+            </custom:FilteringDataGrid.Columns>
+
+            <custom:FilteringDataGrid.HorizontalGridLinesBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0" MappingMode="Absolute" SpreadMethod="Repeat">
+                    <GradientStop Offset="0" Color="Black"/>
+                    <GradientStop Offset="1" Color="Transparent"/>
+                </LinearGradientBrush>
+            </custom:FilteringDataGrid.HorizontalGridLinesBrush>
+
+            <custom:FilteringDataGrid.VerticalGridLinesBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" MappingMode="Absolute" SpreadMethod="Repeat">
+                    <GradientStop Offset="0" Color="Black"/>
+                    <GradientStop Offset="1" Color="Transparent"/>
+                </LinearGradientBrush>
+            </custom:FilteringDataGrid.VerticalGridLinesBrush>
+            
+        </custom:FilteringDataGrid>
+        <Button Content="Select" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" 
+                Width="40" Margin="0,0,20,0" Click="Button_Click" />
+    </Grid>
+</Window>
